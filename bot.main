@@ -1,0 +1,147 @@
+# librays
+import discord
+import os
+import requests
+import json
+import random
+from keep_alive import keep_alive
+
+# tłumacz
+client = discord.Client()
+# lists
+thank_word = [
+  "thanks",
+  "thank you"
+]
+no_problem_word = [
+  "your welcome",
+  "no problem",
+  "I love helping"
+]
+tank_words = [
+  "T-34", 
+  "Object 140",
+  "T-34-85",
+  "Bt-7",
+  "Bt-7 art",
+  "Charioteer",
+  "Fv4005 stage II",
+  "Object 703",
+  "T110E3",
+  "T110E4",
+  "T110E5",
+  "AMX ELC BIS",
+  "AMX 13 105",
+  "Bat.-Châtillon 25 t"
+]
+tank_replay = [
+  "It is a good tank!",
+  "I realy like it.",
+  "Oh, you can do amazing things with it!"
+]
+
+commands_list = [
+  "prefix = !"
+  "Hi", 
+  "he", 
+  "ta", 
+  "gd", 
+  "version",
+  "list", 
+  "tank list", 
+  "WOT", 
+  "WOW", 
+  "tank", 
+  "{name of tank}", 
+  "Franciszek_Kruszewski"
+]
+
+@client.event
+async def on_ready():
+  print('We have logged in as {0.user}'.format(client))
+
+
+@client.event
+async def on_message(message):
+
+  if message.author == client.user:
+    return
+
+  # hi message
+  if (message.content == "hi"):
+    if (message.content == 'hi'):
+      await message.channel.send('Hi!')
+    if (message.content == 'Hi'):
+      await message.channel.send('Hi!')
+  
+  # gif message
+  if (message.content == '!he'):
+    await message.channel.send('https://tenor.com/view/hehe-raccoon-ornery-gif-10625001')
+  if (message.content == '!ta'):
+    await message.channel.send('https://tenor.com/view/leopard-tank-tank-attack-gif-15994800')
+  if (message.content == '!pl'):
+    await message.channel.send('https://tenor.com/view/polandkurwa-gif-19355139')
+
+  # olo message
+  if message.content.startswith('!o'):
+    if (message.content == '!o!hi'):
+      await message.channel.send('Heja olgierd!')
+
+    if (message.content == '!o!ga'):
+      await message.channel.send('Olgierd pogadaj!')
+
+  # tehnic message
+  if (message.content == '!th'):
+    await message.channel.send('We have 1min technic brake.')
+  if (message.content == '!th 5'):
+    await message.channel.send('Our one minute technic barke will be longer.')
+  if message.content.startswith('!tank list'):
+    await message.channel.send(tank_words)
+
+  # wiadomości i informacje
+  if message.content.startswith('@Wiadomości'):
+    await message.channel.send('Nowa wiadomość od World of Tanks!')
+  if (message.content == '!WOT'):
+    await message.channel.send('It is a game named World of Tanks. Do you want to play it? https://worldoftanks.eu/pl/')
+  if (message.content == '!WOW'):
+    await message.channel.send('It is a game named World of Warships. Do you want to play it? https://worldofwarships.eu/pl/')
+  if (message.content == "!list"):
+    await message.channel.send(tank_words)  
+  if (message.content == '!help'):
+    await message.channel.send(commands_list)
+
+  # tankpedia
+  if message.content.startswith('!tank'):
+    
+    if (message.content == '!tank object 140'):
+      await message.channel.send('History: It is tank made by soviet in. Tier: X')
+
+    if (message.content == '!tank object 430U'):
+      await message.channel.send('History: It is tank made by soviet in. Tier: X')
+
+    if (message.content == '!tank Kv-2'):
+      await message.channel.send('History: It is tank made by soviet in 1###. Tier: VI .')
+
+  #rest
+  if (message.content == '!Franek_Kruszewski'):
+    await message.channel.send('Hi is my creator')
+  if (message.content == '!gd'):
+    await message.channel.send('Good luck commander on battle field!')
+  
+
+  #if (message.content == '!version'):
+   # await message.channel.send('Now im in version', version)
+  #if message.content.startswith('!add happy'):
+  # await reaction.message.chanel(":happy:")
+
+  msg = message.content
+  if any(word in msg for word in tank_words):
+    await message.channel.send(random.choice(tank_replay))
+
+  if any(word in msg for word in thank_word):
+    await message.channel.send(random.choic(no_problem_word))
+
+
+  
+keep_alive()
+client.run(os.getenv('TOKEN'))
